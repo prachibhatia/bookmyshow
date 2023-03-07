@@ -17,4 +17,7 @@ public class MovieController {
     public List<Movie> getMovies(){
         return movieService.getMovies();
     }
+    public Movie createMovie(String name){
+        return movieService.createMovie(name);
+    }
 }

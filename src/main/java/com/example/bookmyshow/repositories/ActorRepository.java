@@ -1,14 +1,13 @@
 package com.example.bookmyshow.repositories;
 
-import com.example.bookmyshow.models.Movie;
+import com.example.bookmyshow.models.Actor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface MovieRepository extends JpaRepository<Movie,Long> {
-    List<Movie> findAll();
+public interface ActorRepository extends JpaRepository<Actor,Long> {
 
-    Movie save(Movie movie);
+    List<Actor> findAllByName(List<String> actorNames);
 }
