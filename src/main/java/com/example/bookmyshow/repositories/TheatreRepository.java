@@ -1,7 +1,6 @@
 package com.example.bookmyshow.repositories;
 
 import com.example.bookmyshow.models.Theatre;
-import com.example.bookmyshow.services.TheatreService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

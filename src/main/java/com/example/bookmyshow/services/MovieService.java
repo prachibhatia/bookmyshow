@@ -1,9 +1,6 @@
 package com.example.bookmyshow.services;
 
-import com.example.bookmyshow.models.Actor;
-import com.example.bookmyshow.models.City;
 import com.example.bookmyshow.models.Movie;
-import com.example.bookmyshow.repositories.ActorRepository;
 import com.example.bookmyshow.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
