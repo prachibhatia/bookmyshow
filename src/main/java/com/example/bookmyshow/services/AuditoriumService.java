@@ -14,17 +14,20 @@ public class AuditoriumService {
     private MovieRepository movieRepository;
     private ShowRepository showRepository;
     private SeatRepository seatRepository;
+    private ShowSeatRepository showSeatRepository;
     @Autowired
     public AuditoriumService(AuditoriumRepository auditoriumRepository,
                              TheatreRepository theatreRepository,
                              MovieRepository movieRepository,
                              ShowRepository showRepository,
-                             SeatRepository seatRepository){
+                             SeatRepository seatRepository,
+                             ShowSeatRepository showSeatRepository){
         this.auditoriumRepository = auditoriumRepository;
         this.theatreRepository = theatreRepository;
         this.movieRepository = movieRepository;
         this.showRepository = showRepository;
         this.seatRepository = seatRepository;
+        this.showSeatRepository = showSeatRepository;
     }
     public Auditorium createAuditorium(Long theatreId,String name){
         Auditorium auditorium = new Auditorium();
@@ -72,13 +75,26 @@ public class AuditoriumService {
         Movie movie = OptionalMovie.get();
 
         show.setMovie(movie);
-        Show savedShow = showRepository.save(show);
         Optional<Auditorium> optionalAuditorium = auditoriumRepository.findById(audiId);
 
         Auditorium auditorium = optionalAuditorium.get();
+
         if(auditorium.getShows()==null){
             auditorium.setShows(new ArrayList<>());
         }
+        show.setAuditorium(auditorium);
+
+        Show savedShow = showRepository.save(show);
+        List<ShowSeat> savedShowSeats = new ArrayList<>();
+
+        for (Seat seat: auditorium.getSeats()) {
+            ShowSeat showSeat = new ShowSeat();
+            showSeat.setShow(savedShow);
+            showSeat.setSeat(seat);
+            showSeat.setShowSeatStatus(ShowSeatStatus.AVAILABLE);
+            savedShowSeats.add(showSeatRepository.save(showSeat));
+        }
+
         auditorium.getShows().add(savedShow);
         auditoriumRepository.save(auditorium);
         return savedShow;
