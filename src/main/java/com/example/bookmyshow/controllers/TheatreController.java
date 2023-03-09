@@ -21,9 +21,9 @@ public class TheatreController {
     ) {
         Theatre theatre = null;
         try {
-            theatre = this.theatreService.createTheatre(name, address, cityId);
+            theatre = theatreService.createTheatre(name, address, cityId);
         } catch (Exception e) {
-            System.out.println("Something wrong happened");
+            System.out.println(e.getMessage());
         }
 
         return theatre;

@@ -19,23 +19,23 @@ public class TheatreService {
         this.cityRepository = cityRepository;
     }
 
-    public Theatre createTheatre(String name,String address,Long cityId) throws RuntimeException{
-        Optional<City> city = cityRepository.findById(cityId);
-        if (city.isEmpty()) {
-            throw new RuntimeException("No city with given ID");
-        }
+    public Theatre createTheatre(String name,String address,Long cityId){
+
         Theatre theatre = new Theatre();
         theatre.setAddress(address);
         theatre.setName(name);
+        theatre.setCompany(name);
         Theatre savedTheatre = theatreRepository.save(theatre);
+
+        Optional<City> city = cityRepository.findById(cityId);
+
 
         City dbCity = city.get();
         if (dbCity.getTheatres() == null) {
             dbCity.setTheatres(new ArrayList<>());
         }
         dbCity.getTheatres().add(savedTheatre);
-
-        cityRepository.save(dbCity);
+        this.cityRepository.save(dbCity);
         return savedTheatre;
     }
 }
